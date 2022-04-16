@@ -1,1 +1,3 @@
-# react-base-template
+# React template project
+
+
