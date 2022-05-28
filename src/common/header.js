@@ -1,5 +1,4 @@
-import React , { useState ,useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 function Header(props) {
     const handleClick = (page)=> {
         console.log('page1 clicked:'+ page);
@@ -18,7 +17,7 @@ function Header(props) {
 
                     <ul className="navbar-nav d-none d-lg-flex">
                         <li className="nav-item"><a className="nav-link" href="index.html">Overview</a></li>
-                        <li className="nav-item"><a className="nav-link" href="https://docs.startbootstrap.com/material-admin-pro" target="_blank">Documentation</a></li>
+                        <li className="nav-item"><a className="nav-link" href="https://docs.startbootstrap.com/material-admin-pro" target="_blank" rel="noreferrer">Documentation</a></li>
                     </ul>
 
                     <div className="d-flex">
