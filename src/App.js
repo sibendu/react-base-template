@@ -1,73 +1,89 @@
 import React , { useState ,useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import Axios from 'axios'; 
-import logo from './logo.svg';
-import Header from './common/header';
-import LeftBar from './common/leftbar';
-import EntityAllView from './pages/entity_all_view';
-import EntitySingleView from './pages/entity_single_view';
-import EntityCreateForm from './pages/entity_create_form';
-import EntityEditForm from './pages/entity_single_edit';
-import LoginForm from './pages/login_form';
-import Home from './pages/home';
-import * as configClass from './common/config';
+
+import Header from './common/Header';
+import LeftBar from './common/Leftbar';
+import Footer from './common/Footer';
+
+import LoginForm from './pages/LoginForm';
+import Home from './pages/Home';
+
+import AddCustomer from './pages/customer/AddCustomer';
+import SearchCustomer from './pages/customer/SearchCustomer';
+
+import Settings from './pages/Settings';
+import Preferences from './pages/Preferences';
+import Profile from './pages/Profile';
+
+import NewTask from './pages/task/NewTask';
+
 function App() {
     const [page, setPage] = useState("Home");
+    const [user, setUser] = useState({});
+
+    const [token, setToken] = useState("");
     const [entityid, setEntityid] = useState(0);
-    const [bearertoken, setBearertoken] = useState("");
-    const [loggeduser, setLoggeduser] = useState({});
-    const [loginstatus, setLoginstatus] = useState(false);
+    
     useEffect(() => { 
-        console.log("App called");
+       console.log("App called");
     }, [page]);
+
     const handlePageNavigationLinkClick = (page) => {
-        console.log("page:"+ page);
-        setPage(page);
-      }
-      const handleViewClick = (page,entid) => {
-        console.log("page:"+ page);
-        setPage(page);
-        setEntityid(entid);
-      }
-      const handleEditClick = (page,entid) => {
-        console.log("page:"+ page);
-        setPage(page);
-        setEntityid(entid);
-      }
-      const handleLoginsuccess =(token, useremail) =>
-      {
-        console.log("token:"+ token);
-        setBearertoken(token);
-        let headers = { "Authorization": 'Bearer ' + token};
-        Axios.get('/getuser',{
-                  headers: headers
-            })
-            .then(response => 
-            {
-                console.log(response.data);
-                setLoggeduser(response.data);
-                setPage("Home");
-                setLoginstatus(true);
-            });     
-      }
+      //console.log("page:"+ page);
+      setPage(page);	
+    }
+    
+    const logout = () => {
+      //console.log("Logout");
+      setUser(null);
+      setToken(null);
+    }
+
+    const handleLoginsuccess =(token, user) =>
+    {
+        //console.log("token: "+ token+ " ; user: "+user);
+        setToken(token);
+        setUser(user);
+        setPage("Home");
+    }
+
+  if(!user){
+    return (
+      <div id="layoutDrawer">
+        <LoginForm handleLoginsuccess={handleLoginsuccess} handleRegisterClick={handlePageNavigationLinkClick}/>
+      </div>
+      );
+  }
+	
   return (
         <div id="layoutDrawer">
-      <LeftBar Loginstatus={loginstatus} Loggeduser={loggeduser} onClick={handlePageNavigationLinkClick}/>
+          
+          <Header user={user} onClick={handlePageNavigationLinkClick} onLogout={logout} />
 
-          <Header Loginstatus={loginstatus} Useremail={loggeduser.first_name} onClick={handlePageNavigationLinkClick}/>
+          <LeftBar user={user} onClick={handlePageNavigationLinkClick}/>
+          
           {
-            page==="Home"?<Home Token={bearertoken}/>:
-            page==="Login"?<LoginForm handleLoginsuccess={handleLoginsuccess} handleRegisterClick={handlePageNavigationLinkClick}/>:
-            page==="CustomerAllView"?<EntityAllView Formprops={configClass.entity_all_view.view_all_customer} handleViewClick={handleViewClick} handleEditClick={handleEditClick} handleCreateClick={handlePageNavigationLinkClick}/>:
-            page==="ProcessDefintionAllView"?<EntityAllView Formprops={configClass.entity_all_view.view_all_process_definition} handleViewClick={handleViewClick} handleEditClick={handleEditClick} handleCreateClick={handlePageNavigationLinkClick}/>:
-            page==="SingleCustomerView"?<EntitySingleView Entityid={entityid} Formprops={configClass.entity_single_view.view_single_customer} handleEditClick={handleEditClick}/>:
-            page==="SingleProcessDefinitionView"?<EntitySingleView Entityid={entityid} Formprops={configClass.entity_single_view.view_single_process_defintion} handleEditClick={handleEditClick}/>:
-            page==="EntityCreateForm"?<EntityCreateForm Formprops={configClass.entity_create.create_customer}/>:
-            page==="EditCustomer"?<EntityEditForm Formprops={configClass.entity_edit.edit_customer} Entityid={entityid}/>:
-            page==="RegisterUser"?<EntityCreateForm Formprops={configClass.entity_create.register_user}/>:<Home/>
+
+              page==="Home"?<Home user={user}/>:
+                              
+              page==="NewTask"?<NewTask user={user}/>:
+
+              page==="AddCustomer"?<AddCustomer user={user}/>:
+
+              page==="SearchCustomer"?<SearchCustomer user={user}/>:
+
+              page==="Settings"?<Settings user={user}/>:
+
+              page==="Preferences"?<Preferences user={user}/>:
+
+              page==="Profile"?<Profile user={user}/>:
+
+              <Home user={user}/>
           }
+
       </div>
   );
+
 }
 
 export default App;

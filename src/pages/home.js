@@ -1,12 +1,9 @@
-import React , { useState ,useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import Axios from 'axios'; 
-import Header from '../common/header';
-function Home(props) {
-    const bearertoken = props.Token;
-    /*useEffect(() => {           
+import React from 'react';
 
-    }, []); */
+import Footer from "../common/Footer";
+
+function Home(props) {
+
     return ( 
         <div id="layoutDrawer_content">
         
@@ -18,7 +15,6 @@ function Home(props) {
                         <h1 className="display-4 mb-0">Dashboard</h1>
                         <div className="text-muted">Sales overview &amp; summary</div>
                     </div>
-                   
                 </div>
               
                 <div className="row gx-5">
@@ -194,7 +190,6 @@ function Home(props) {
                                         <h2 className="card-title mb-0">Privacy Suggestions</h2>
                                         <p className="card-text">Take our privacy checkup to choose which settings are right for you.</p>
                                     </div>
-                                    <img  />
                                 </div>
                             </div>
                             <div className="card-footer bg-transparent position-relative ripple-gray px-4"><a className="stretched-link text-decoration-none" href="#!">Review suggestions (4)</a></div>
@@ -211,7 +206,6 @@ function Home(props) {
                                         <div className="progress mb-2" ><div className="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="30"></div></div>
                                         <div className="card-text">10 GB of 30 GB used</div>
                                     </div>
-                                    <img  />
                                 </div>
                             </div>
                             <div className="card-footer bg-transparent position-relative ripple-gray px-4"><a className="stretched-link text-decoration-none" href="#!">Manage storage</a></div>
@@ -239,18 +233,7 @@ function Home(props) {
             </div>
         </main>
 
-        <footer className="py-4 mt-auto border-top">
-            <div className="container-xl px-5">
-                <div className="d-flex flex-column flex-sm-row align-items-center justify-content-sm-between small">
-                    <div className="me-sm-2">Copyright © Your Website 2021</div>
-                    <div className="d-flex ms-sm-2">
-                        <a className="text-decoration-none" href="#!">Privacy Policy</a>
-                        <div className="mx-1">·</div>
-                        <a className="text-decoration-none" href="#!">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <Footer/>
     </div>
 
     );
