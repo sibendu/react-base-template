@@ -8,18 +8,22 @@ function LeftBar(props) {
     const [userroles, setUserroles] = useState([]);
 
     const allMenuItems = [
-        {'id':'Home','title':'Dashboard', 'href': 'Home', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']},
-        {'id':'Task','title':'Task', 'icon': 'fas fa-briefcase', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE'],
+        {'id':'Home','title':'Dashboard', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']},
+        {'id':'Task','title':'Task', 'icon': 'fas fa-briefcase', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE','SUPERADMIN'],
             'subItems': [ 
-                {'id':'NewTask', 'title': 'New Task'}  
+                {'id':'NewTask', 'title': 'New Task'}  ,
+                {'id':'SearchTask', 'title': 'Search Task'}  ,
+                {'id':'SampleTask', 'title': 'Sample Form'},  
+                {'id':'ListTask', 'title': 'Tasks List'}  
             ]},
         {'id':'Customer', 'title':'Customer','icon': 'fas fa-briefcase',
             'subItems': [
                 {'id':'AddCustomer', 'title': 'Add Customer','roles':['ADMIN','PROCESS_OWNER']},
                 {'id':'SearchCustomer', 'title': 'Search Customer','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}   
             ]},
-        {'id':'Preferences','title':'Preferences', 'href': 'Preferences', 'icon': 'fas fa-circle','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}, 
-        {'id':'Settings','title':'Account Settings', 'href': 'Settings', 'icon': 'fas fa-user','roles':['SUPERADMIN']},               
+        {'id':'Preferences','title':'Preferences',  'icon': 'fas fa-circle','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}, 
+        {'id':'Settings','title':'Account Settings',  'icon': 'fas fa-user','roles':['SUPERADMIN']},               
+        {'id':'Sample','title':'Sample Page', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}        
     ];
 
     const menuItems = allMenuItems;

@@ -16,6 +16,11 @@ import Preferences from './pages/Preferences';
 import Profile from './pages/Profile';
 
 import NewTask from './pages/task/NewTask';
+import SearchTask from './pages/task/SearchTask'
+import SampleTask from './pages/task/SampleTask';
+import ListTask from './pages/task/ListTask';
+
+import Sample from './pages/Sample';
 
 function App() {
     const [page, setPage] = useState("Home");
@@ -68,6 +73,12 @@ function App() {
                               
               page==="NewTask"?<NewTask user={user}/>:
 
+              page==="SearchTask"?<SearchTask user={user}/>:
+             
+              page==="SampleTask"?<SampleTask user={user}/>: 
+
+              page==="ListTask"?<ListTask user={user}/>: 
+
               page==="AddCustomer"?<AddCustomer user={user}/>:
 
               page==="SearchCustomer"?<SearchCustomer user={user}/>:
@@ -77,6 +88,8 @@ function App() {
               page==="Preferences"?<Preferences user={user}/>:
 
               page==="Profile"?<Profile user={user}/>:
+
+              page==="Sample"?<Sample user={user}/>:
 
               <Home user={user}/>
           }
