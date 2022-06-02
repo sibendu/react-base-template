@@ -37,7 +37,7 @@ function LeftBar(props) {
     }); 
 
     const handleClick = (page)=> {
-        props.onClick(page);
+        props.onClick(page, true, null);
     } 
 
     return (

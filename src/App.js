@@ -25,17 +25,29 @@ import Sample from './pages/Sample';
 function App() {
     const [page, setPage] = useState("Home");
     const [user, setUser] = useState({});
+    const [data, setData] = useState({});
 
     const [token, setToken] = useState("");
-    const [entityid, setEntityid] = useState(0);
+    const [menuClickInd, setMenuClickInd] = useState(true);
     
     useEffect(() => { 
-       console.log("App called");
+       //console.log("App called");
     }, [page]);
 
-    const handlePageNavigationLinkClick = (page) => {
-      //console.log("page:"+ page);
-      setPage(page);	
+    const handlePageNavigationLinkClick = (nextpage, menuClickInd, data) => {
+      if(menuClickInd){
+        setMenuClickInd(menuClickInd);
+      }else{
+        setMenuClickInd(false);
+      }
+      if(data){
+        setData(data);
+      }else{
+        setData(null);
+      }
+      console.log(menuClickInd+" -- page="+ page+ ":::: data: "+data);
+
+      setPage(nextpage);	
     }
     
     const logout = () => {
@@ -71,9 +83,9 @@ function App() {
 
               page==="Home"?<Home user={user}/>:
                               
-              page==="NewTask"?<NewTask user={user}/>:
+              page==="NewTask"?<NewTask user={user} menuClickInd={menuClickInd} data={data}/>:
 
-              page==="SearchTask"?<SearchTask user={user}/>:
+              page==="SearchTask"?<SearchTask user={user} onClick={handlePageNavigationLinkClick}/>:
              
               page==="SampleTask"?<SampleTask user={user}/>: 
 

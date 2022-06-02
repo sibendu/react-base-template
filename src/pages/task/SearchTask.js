@@ -31,27 +31,31 @@ import Footer from "../../common/Footer";
 
 import PageHeader from '../../common/PageHeader';
 
-const SearchTask = () => {
+const SearchTask = (props) => {
 
   const [searchingInd, setSearchingInd] = React.useState(false);
   const [searchedInd, setSearchedInd] = React.useState(false);
   const [pageSize, setPageSize] = React.useState(10);
   const [recordSelected, setRecordSelected] = useState({});
 
+  const handleClick = (page, data)=> {
+    props.onClick(page, false, data);
+  }; 
+
   const [result, setResult] = React.useState({
       "records":[
-        { id: 11, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        { id: 12, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        { id: 13, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 14, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 15, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 16, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 17, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 18, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 19, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 20, lastName: 'John', firstName: 'Ferrara', age: 44 },
-        { id: 21, lastName: 'Franc', firstName: 'Rossini', age: 36 },
-        { id: 22, lastName: 'Rox', firstName: 'Harvey', age: 65 }
+        { id: 11, lastName: 'Snow', firstName: 'Jon', age: 35, "city": "LON" },
+        { id: 12, lastName: 'Lannister', firstName: 'Cersei', age: 42, "city": "CAL" },
+        { id: 13, lastName: 'Lannister', firstName: 'Jaime', age: 45 , "city": "LON"},
+        { id: 14, lastName: 'Stark', firstName: 'Arya', age: 16 , "city": "LON"},
+        { id: 15, lastName: 'Targaryen', firstName: 'Daenerys', age: null , "city": "KOL"},
+        { id: 16, lastName: 'Melisandre', firstName: null, age: 150 , "city": "LON"},
+        { id: 17, lastName: 'Clifford', firstName: 'Ferrara', age: 44, "city": "CAL" },
+        { id: 18, lastName: 'Frances', firstName: 'Rossini', age: 36, "city": "LON" },
+        { id: 19, lastName: 'Roxie', firstName: 'Harvey', age: 65, "city": "CAL" },
+        { id: 20, lastName: 'John', firstName: 'Ferrara', age: 44 , "city": "LON"},
+        { id: 21, lastName: 'Franc', firstName: 'Rossini', age: 36 , "city": "CAL"},
+        { id: 22, lastName: 'Rox', firstName: 'Harvey', age: 65, "city": "KOL" }
       ]
   });
 
@@ -70,7 +74,12 @@ const SearchTask = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking 
-          alert("Editing record: "+params.id);
+          //alert("Editing record: "+params.id);
+          result.records.forEach((rec, i) => {
+            if(params.id == rec.id){
+              handleClick("NewTask", rec);
+            }
+          });  
         };
         return (
           <button className="btn btn-lg btn-text-black btn-icon" type="button" onClick={onClick}><i className="material-icons">edit</i></button>
@@ -81,7 +90,7 @@ const SearchTask = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking  
-          alert("Deleting record: "+params.id);
+          alert("Delete record: "+params.id);          
         };
         return (
           <button className="btn btn-lg btn-text-black btn-icon" type="button" onClick={onClick}><i className="material-icons">delete</i></button>

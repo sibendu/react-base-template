@@ -1,4 +1,4 @@
-import React , { useState  } from 'react';
+import React , { useState , useEffect } from 'react';
 import { DataGrid, useGridApiRef, GridToolbar , GridRowModes} from '@mui/x-data-grid';
 
 import Stack from '@mui/material/Stack';
@@ -31,17 +31,18 @@ import Footer from "../../common/Footer";
 
 import PageHeader from '../../common/PageHeader';
 
-const NewTask = () => {
+function NewTask (props){
+
+  const newRecord = { id: 0, lastName: null, firstName: null, age: null, "city": null };
+  const [record, setRecord] = React.useState(props.data ?  props.data: newRecord);
+
+  useEffect(() => {
+    console.log(props.menuClickInd+" - record in NewTask: "+JSON.stringify({record}));
+  });
 
   interface CityOptionType {
     title: string;
     code: string;
-  }
-
-  interface CountryOptionType {
-    code: string;
-    name: string;
-    phone: string;
   }
 
   const cities = [
@@ -49,22 +50,6 @@ const NewTask = () => {
     { title: 'London', code: "LON" },
     { title: 'California', code: "CAL" }
   ]; 
-
-  const countries = [
-    { code: "IN" , "name": "India", "phone": "+91"},
-    { code: "USA" , "name": "United States of America", "phone": "+001"},
-    { code: "UK" , "name": "United Kingdom", "phone": "+44"},
-  ]; 
-
-  const defaultCityProps = {
-    options: cities,
-    getOptionLabel: (option: CityOptionType) => option.title,
-  }; 
-
-  const defaultCountryProps = {
-    options: countries,
-    getOptionLabel: (option: CountryOptionType) => option.name + ' '+ option.phone,
-  };
 
   return (
 
@@ -91,6 +76,7 @@ const NewTask = () => {
                       fullWidth
                       autoComplete="given-name"
                       variant="standard"
+                      value={record.firstName}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} padding={2}>
@@ -102,66 +88,48 @@ const NewTask = () => {
                       fullWidth
                       autoComplete="family-name"
                       variant="standard"
+                      value={record.lastName}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} padding={2}>
-                    <FormLabel id="lblGender">Gender</FormLabel>
-                    <RadioGroup row id="gender">
-                      <FormControlLabel value="female" control={<Radio />} label="Female" />
-                      <FormControlLabel value="male" control={<Radio />} label="Male" />
-                      <FormControlLabel value="disabled" disabled control={<Radio />} label="other"/>
-                    </RadioGroup>
-                  </Grid>
-                  <Grid item xs={12} sm={6} padding={2}>
-                    <FormLabel id="lblGender">Opt-In Preference</FormLabel><br/>
-                    <FormControlLabel 
-                      label="Opting-In"
-                      control={
-                        <Switch                          
-                          checked={true}
-                          onChange={()=> alert('Changed')}
-                          inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                      }
-                    />                      
-                  </Grid>
-
-                  <Grid item xs={12} sm={12} padding={2}>      
-                    <Divider textAlign="center">
-                      <Chip label="Address" />
-                    </Divider>
-                  </Grid>
-
-                  <Grid item xs={12} padding={2}>
                     <TextField
                       required
-                      id="address1"
-                      name="address1"
-                      label="Address line 1"
+                      id="age"
+                      name="age"
+                      label="Age"
                       fullWidth
-                      autoComplete="shipping address-line1"
+                      autoComplete="given-name"
                       variant="standard"
+                      value={record.age}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} padding={2}>
+                    <TextField
+                      required
+                      id="fullName"
+                      name="fullName"
+                      label="Full name"
+                      fullWidth
+                      autoComplete="family-name"
+                      variant="standard"
+                      value={record.fullName}
                     />
                   </Grid>
                   
+
                   <Grid item xs={12} sm={6} padding={2}>
-                    <Autocomplete
-                      {...defaultCityProps}
+                    <Autocomplete                      
                       id="cities"
+                      options={cities}
+                      onChange={(event, value) => console.log('Changed: '+value)}
+                      getOptionLabel= {(option: CityOptionType) => option.title}
+                      defaultValue={cities.find(v =>  v.code==record.city? v.title: '')}
                       renderInput={(params) => (
-                        <TextField {...params} label="City" variant="standard" />
+                        <TextField {...params} label="City" variant="standard"/>
                       )}
                     />            
                   </Grid>
-                  <Grid item xs={12} sm={6} padding={2}>
-                    <Autocomplete
-                      {...defaultCountryProps}
-                      id="countries"
-                      renderInput={(params) => (
-                        <TextField {...params} label="Country" variant="standard" />
-                      )}
-                    />            
-                  </Grid>
+                  
                   <Grid item xs={12} padding={2}>
                     <FormControlLabel
                       control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
