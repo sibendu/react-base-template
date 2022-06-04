@@ -1,5 +1,6 @@
 import React , { useState ,useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom";
 
 import MenuItem from './MenuItem';
 
@@ -8,37 +9,28 @@ function LeftBar(props) {
     const [userroles, setUserroles] = useState([]);
 
     const allMenuItems = [
-        {'id':'Home','title':'Dashboard', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']},
+        {'id':'home','title':'Dashboard', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']},
         {'id':'Task','title':'Task', 'icon': 'fas fa-briefcase', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE','SUPERADMIN'],
             'subItems': [ 
-                {'id':'NewTask', 'title': 'New Task'}  ,
-                {'id':'SearchTask', 'title': 'Search Task'}  ,
-                {'id':'SampleTask', 'title': 'Sample Form'},  
-                {'id':'ListTask', 'title': 'Tasks List'}  
+                {'id':'tasks/new', 'title': 'New Task'}  ,
+                {'id':'tasks/search', 'title': 'Search Task'}  ,
+                {'id':'tasks/sample', 'title': 'Sample Form'},  
+                {'id':'tasks/list', 'title': 'Tasks List'}  
             ]},
         {'id':'Customer', 'title':'Customer','icon': 'fas fa-briefcase',
             'subItems': [
-                {'id':'AddCustomer', 'title': 'Add Customer','roles':['ADMIN','PROCESS_OWNER']},
-                {'id':'SearchCustomer', 'title': 'Search Customer','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}   
+                {'id':'customers/new', 'title': 'Add Customer','roles':['ADMIN','PROCESS_OWNER']},
+                {'id':'customers/search', 'title': 'Search Customer','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}   
             ]},
-        {'id':'Preferences','title':'Preferences',  'icon': 'fas fa-circle','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}, 
-        {'id':'Settings','title':'Account Settings',  'icon': 'fas fa-user','roles':['SUPERADMIN']},               
-        {'id':'Sample','title':'Sample Page', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}        
+        {'id':'preferences','title':'Preferences',  'icon': 'fas fa-circle','roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}, 
+        {'id':'settings','title':'Account Settings',  'icon': 'fas fa-user','roles':['SUPERADMIN']},               
+        {'id':'sample','title':'Sample Page', 'icon': 'fas fa-home', 'roles':['ADMIN','PROCESS_OWNER','EMPLOYEE']}        
     ];
 
     const menuItems = allMenuItems;
 
-    useEffect(() => { 
-
-        if(props.user.roles!== undefined) 
-        {
-            setUserroles(props.user.roles);
-        }         
+    useEffect(() => {       
     }); 
-
-    const handleClick = (page)=> {
-        props.onClick(page, true, null);
-    } 
 
     return (
         <div id="layoutDrawer_nav">
@@ -54,12 +46,11 @@ function LeftBar(props) {
                             {
                                 menuItems.map(item => {
                                     return (  
-                                        <MenuItem key={item.id} item={item} handleClick={handleClick}/>
+                                        <MenuItem key={item.id} item={item}/>
                                   )  
                                 })
-                            }            
-
-                           
+                            }             
+                            
                         </div>
                     </div>
                 

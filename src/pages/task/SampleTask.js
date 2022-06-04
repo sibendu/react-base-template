@@ -67,9 +67,7 @@ const SampleTask = () => {
   };
 
   return (
-
-    <div id="layoutDrawer_content">
-        
+       
         <main>
             
             <div className="container-xl p-5">
@@ -206,10 +204,6 @@ const SampleTask = () => {
 
             </div>
         </main>
-
-        <Footer/>  
-    </div>
-    
     );
   };
   

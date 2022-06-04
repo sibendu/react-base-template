@@ -2,9 +2,6 @@ import Footer from "../common/Footer";
 
 const Preferences = () => {
     return (
-
-      <div id="layoutDrawer_content">
-        
         <main>
             <div className="container-xl p-5">
                 <div className="row justify-content-between align-items-center mb-5">
@@ -16,8 +13,6 @@ const Preferences = () => {
             </div>
         </main>
 
-        <Footer/>
-      </div>  
     );
   };
   

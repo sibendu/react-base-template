@@ -1,6 +1,46 @@
 import React from 'react';
 
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";  
+import styled from "styled-components";
+
 export default function MenuItem(props) {
+
+    const linkStyle = {
+        margin: "1rem",
+        textDecoration: "none",
+        color: 'black'
+      };
+
+      const StyledLink = styled(Link)`
+            color: black;
+            text-decoration: none;
+            margin: 3px .8rem;
+            font-size: 0.9rem;
+            padding: 5px;
+            position: relative;
+            `;
+
+      const NavUnlisted = styled.ul`
+                //display: flex;
+                a {
+                    text-decoration: none;
+                }
+                li {
+                    color: black;
+                    margin: 3px .8rem;
+                    padding: 5px;                    
+                    font-size: 0.9rem;
+                    position: relative;
+                    list-style: none;
+                }
+                .current {
+                    li {
+                        border-bottom: 2px solid blue;
+                        color: blue;
+                    }
+                }
+            `;  
 
     const {item} = props;
     
@@ -20,26 +60,27 @@ export default function MenuItem(props) {
         
         <div className="collapse" {...submenuId} aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
             <nav className="drawer-menu-nested nav">
-
+            <NavUnlisted>    
             {
-                item.subItems.map(submenu => {
-                    return(                                
-                        <a className="nav-link" key={submenu.id} onClick={()=> props.handleClick(submenu.id)}>{submenu.title}</a>
+                item.subItems.map((submenu, index) => {
+                    return(   
+                        <NavLink key={index} to={submenu.id} activeClassName="current" exact>
+                            <li>{submenu.title}</li>
+                        </NavLink>   
                     );
                 })
             }
-                
+            </NavUnlisted>    
             </nav>
         </div>
 
             </>
         );
     }else{
-        return (  
-            <a className="nav-link" href="#" onClick={()=> props.handleClick(item.id)}>
-                <div className="nav-link-icon"><i className="material-icons">language</i></div>
-                {item.title}
-            </a>      
+        return (
+            <NavUnlisted>
+                <StyledLink to={item.id}>{item.title}</StyledLink>
+            </NavUnlisted>  
         );    
     }    			
  }

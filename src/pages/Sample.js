@@ -105,8 +105,6 @@ const Sample = () => {
 
   return (
 
-    <div id="layoutDrawer_content">
-        
         <main>
 
             <div className="container-xl p-5">
@@ -158,9 +156,6 @@ const Sample = () => {
                 </div>
             </div>
         </main>
-
-        <Footer/>  
-    </div>
     
     );
   };

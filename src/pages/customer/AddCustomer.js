@@ -3,9 +3,6 @@ import Footer from '../../common/Footer';
 
 const AddCustomer = () => {
   return (
-
-    <div id="layoutDrawer_content">
-      
       <main>
           <div className="container-xl p-5">
               <div className="row justify-content-between align-items-center mb-5">
@@ -15,10 +12,7 @@ const AddCustomer = () => {
                   </div>
               </div>
           </div>
-      </main>
-
-      <Footer/>
-    </div>  
+      </main> 
   );
 };
   

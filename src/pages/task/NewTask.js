@@ -53,9 +53,7 @@ function NewTask (props){
 
   return (
 
-    <div id="layoutDrawer_content">
-        
-        <main>
+      <main>
             
             <div className="container-xl p-5">
                 
@@ -153,9 +151,6 @@ function NewTask (props){
 
             </div>
         </main>
-
-        <Footer/>  
-    </div>
     
     );
   };

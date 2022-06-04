@@ -1,3 +1,5 @@
+import { Routes, Route } from "react-router-dom"
+
 import React , { useState ,useEffect } from 'react';
 import Axios from 'axios'; 
 
@@ -23,32 +25,12 @@ import ListTask from './pages/task/ListTask';
 import Sample from './pages/Sample';
 
 function App() {
-    const [page, setPage] = useState("Home");
     const [user, setUser] = useState({});
-    const [data, setData] = useState({});
-
     const [token, setToken] = useState("");
-    const [menuClickInd, setMenuClickInd] = useState(true);
     
     useEffect(() => { 
        //console.log("App called");
-    }, [page]);
-
-    const handlePageNavigationLinkClick = (nextpage, menuClickInd, data) => {
-      if(menuClickInd){
-        setMenuClickInd(menuClickInd);
-      }else{
-        setMenuClickInd(false);
-      }
-      if(data){
-        setData(data);
-      }else{
-        setData(null);
-      }
-      console.log(menuClickInd+" -- page="+ page+ ":::: data: "+data);
-
-      setPage(nextpage);	
-    }
+    });
     
     const logout = () => {
       //console.log("Logout");
@@ -61,52 +43,47 @@ function App() {
         //console.log("token: "+ token+ " ; user: "+user);
         setToken(token);
         setUser(user);
-        setPage("Home");
     }
 
   if(!user){
     return (
       <div id="layoutDrawer">
-        <LoginForm handleLoginsuccess={handleLoginsuccess} handleRegisterClick={handlePageNavigationLinkClick}/>
+        <LoginForm handleLoginsuccess={handleLoginsuccess} />
       </div>
       );
   }
 	
   return (
-        <div id="layoutDrawer">
-          
-          <Header user={user} onClick={handlePageNavigationLinkClick} onLogout={logout} />
 
-          <LeftBar user={user} onClick={handlePageNavigationLinkClick}/>
-          
-          {
+    <div id="layoutDrawer">
+              
+        <Header user={user} onLogout={logout} />
 
-              page==="Home"?<Home user={user}/>:
-                              
-              page==="NewTask"?<NewTask user={user} menuClickInd={menuClickInd} data={data}/>:
+        <LeftBar user={user}/>
 
-              page==="SearchTask"?<SearchTask user={user} onClick={handlePageNavigationLinkClick}/>:
-             
-              page==="SampleTask"?<SampleTask user={user}/>: 
+        <div id="layoutDrawer_content">
+          <Routes>
+            <Route path="/" element={ <Home/> } />
+            <Route path="home" element={ <Home/> } />
+            <Route path="tasks">
+              <Route path="new" element={<NewTask />} />
+              <Route path="search" element={<SearchTask />} />
+              <Route path="sample" element={<SampleTask />} />
+              <Route path="list" element={<ListTask />} />
+            </Route>
+            <Route path="customers">
+              <Route path="new" element={<AddCustomer />} />
+              <Route path="search" element={<SearchCustomer />} />
+            </Route>
+            <Route path="preferences" element={ <Preferences/> } />
+            <Route path="settings" element={ <Settings/> } />
+            <Route path="sample" element={ <Sample/> } />
+          </Routes>
 
-              page==="ListTask"?<ListTask user={user}/>: 
-
-              page==="AddCustomer"?<AddCustomer user={user}/>:
-
-              page==="SearchCustomer"?<SearchCustomer user={user}/>:
-
-              page==="Settings"?<Settings user={user}/>:
-
-              page==="Preferences"?<Preferences user={user}/>:
-
-              page==="Profile"?<Profile user={user}/>:
-
-              page==="Sample"?<Sample user={user}/>:
-
-              <Home user={user}/>
-          }
-
-      </div>
+          <Footer/>  
+        </div>
+        
+    </div>
   );
 
 }

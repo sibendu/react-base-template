@@ -1,26 +1,25 @@
 import React , { useState } from 'react';
 
-function Header(props) {
+import { Link } from "react-router-dom";
 
-    const handleClick = (page)=> {
-        console.log('clicked header:'+ page);
-        props.onClick(page);
-    }; 
+function Header(props) { 
+
+    const linkStyle = {
+        margin: "1rem",
+        textDecoration: "none",
+        color: 'white'
+      };
+    
+    const linkStyleBlack = {
+        margin: "1rem",
+        textDecoration: "none",
+        color: 'black'
+      };  
 
     const alerts = [
         {"id":23312, "date": "Mar 12, 2021", "text": "Sample message 1"},
         {"id":23313, "date": "Mar 11, 2021", "text": "Sample message 2"}
     ]; 
-
-    function hideLeftMenu(){        
-        var menu = document.getElementById("layoutDrawer_nav");
-        alert('Clicked '+menu.style.display);
-        if (menu.style.display === "none") {
-            menu.style.display = "block";
-        } else {
-            menu.style.display = "none";
-        }
-    }
 
     return (
 
@@ -36,7 +35,10 @@ function Header(props) {
                 <div className="d-flex align-items-center mx-3 me-lg-0">
 
                     <ul className="navbar-nav d-none d-lg-flex">
-                        <li className="nav-item"><a className="nav-link" onClick={()=>handleClick("NewTask")}>Overview</a></li>
+                        <Link to="preferences" style={linkStyle}>Overview</Link>
+                    </ul>
+                    <ul className="navbar-nav d-none d-lg-flex">
+                        <Link to="settings" style={linkStyle}>Setting</Link>
                     </ul>
 
                     <div className="d-flex">
@@ -69,7 +71,7 @@ function Header(props) {
                                 {
                                      props.user?
                                      <i className="material-icons">person</i> :
-                                     <i className="material-icons" onClick={()=>handleClick("Login")}>login</i>
+                                     <i className="material-icons">login</i>
                                 }
                             </button>
 
@@ -77,15 +79,15 @@ function Header(props) {
                                  props.user?
                                     <ul className="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="dropdownMenuProfile">
                                         <li key="keyProfile">
-                                            <a className="dropdown-item" href="!#" onClick={()=>handleClick("Profile")}>
+                                            <a className="dropdown-item" href="!#">
                                                 <i className="material-icons leading-icon">person</i>
-                                                <div className="me-3">Profile</div>
+                                                <Link to="settings" style={linkStyleBlack}>Setting</Link>
                                             </a>
                                         </li>
                                         <li key="keyPref">
-                                            <a className="dropdown-item" href="!#" onClick={()=>handleClick("Preferences")}>
+                                            <a className="dropdown-item" href="!#">
                                                 <i className="material-icons leading-icon">settings</i>
-                                                <div className="me-3">Preferences</div>
+                                                <Link to="preferences" style={linkStyleBlack}>Preferences</Link>
                                             </a>
                                         </li>
                                         <li key="keyHelp">

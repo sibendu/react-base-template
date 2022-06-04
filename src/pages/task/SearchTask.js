@@ -123,9 +123,7 @@ const SearchTask = (props) => {
   }
 
   return (
-
-    <div id="layoutDrawer_content">
-        
+      
         <main>
             
             <div className="container-xl p-5">
@@ -215,10 +213,6 @@ const SearchTask = (props) => {
 
             </div>
         </main>
-
-        <Footer/>  
-    </div>
-    
     );
   };
   

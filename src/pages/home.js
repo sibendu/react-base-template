@@ -1,14 +1,11 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 import Footer from "../common/Footer";
 
 function Home(props) {
 
-    return ( 
-        <div id="layoutDrawer_content">
-        
-        <main>
-            
+    return (         
+        <main>            
             <div className="container-xl p-5">
                 <div className="row justify-content-between align-items-center mb-5">
                     <div className="col flex-shrink-0 mb-5 mb-md-0">
@@ -16,7 +13,7 @@ function Home(props) {
                         <div className="text-muted">Sales overview &amp; summary</div>
                     </div>
                 </div>
-              
+
                 <div className="row gx-5">
                     <div className="col-xxl-3 col-md-6 mb-5">
                         <div className="card card-raised bg-primary text-white">
@@ -232,9 +229,6 @@ function Home(props) {
                 </div>
             </div>
         </main>
-
-        <Footer/>
-    </div>
 
     );
 }

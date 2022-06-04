@@ -2,8 +2,6 @@ import Footer from '../../common/Footer';
 
 const SearchCustomer = () => {
   return (
-
-    <div id="layoutDrawer_content">
       
       <main>
           <div className="container-xl p-5">
@@ -16,8 +14,6 @@ const SearchCustomer = () => {
           </div>
       </main>
 
-      <Footer/>
-    </div>  
   );
 
   };
